@@ -1,0 +1,20 @@
+{
+  "name": "Dead-Reckoning",
+  "version": "0.1.0",
+  "description": "map app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loveipeter/hsldeadreckon"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "0.x",
+    "grunt-contrib-connect": "0.x",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-browserify": "~1.2.11",
+    "browserify": "~2.36.1"
+  }
+}
