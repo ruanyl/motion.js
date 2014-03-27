@@ -8,13 +8,13 @@
   },
   "author": "",
   "license": "BSD-2-Clause",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt-contrib-watch": "0.x",
     "grunt-contrib-connect": "0.x",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-browserify": "~1.2.11",
-    "browserify": "~2.36.1"
+    "browserify": "~2.36.1",
+    "grunt-mocha-test": "^0.10.0"
   }
 }
