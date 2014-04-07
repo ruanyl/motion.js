@@ -6,8 +6,30 @@ module.exports = function(grunt) {
       test: ['Gruntfile.js', 'test/**/*.js']
     },
     watch: {
-      files: ['src/*.js'],
-      tasks: ['jshint', 'browserify']
+      js: {
+        files: ['src/**/*.js'],
+        tasks: ['jshint', 'browserify']
+      },
+      compass: {
+        files: ['src/**/*.scss'],
+        tasks: ['compass']
+      },
+      combineCss: {
+        files: ['dist/**/*.css'],
+        tasks: ['concat:css']
+      },
+      combineJs: {
+        files: ['dist/**/*.js'],
+        tasks: ['concat:js']
+      },
+      minCss: {
+        files: ['static/css/style.css'],
+        tasks: ['cssmin']
+      },
+      minJs: {
+        files: ['static/js/client.js'],
+        tasks: ['uglify']
+      }
     },
     connect: {
       server: {
@@ -20,7 +42,39 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'static/js/client.js': ['src/*.js']
+          'dist/js/client.js': ['src/**/*.js']
+        }
+      }
+    },
+    compass: {
+      dist: {
+        options: {
+          sassDir: 'src/sass',
+          cssDir: 'dist/css'
+        }
+      }
+    },
+    concat: {
+      css: {
+        src: ['dist/**/*.css'],
+        dest: 'static/css/style.css'
+      },
+      js: {
+        src: ['dist/**/*.js'],
+        dest: 'static/js/client.js'
+      }
+    },
+    cssmin: {
+      minify: {
+        files: {
+          'static/css/style.min.css': ['static/css/style.css']
+        }
+      }
+    },
+    uglify: {
+      minify: {
+        files: {
+          'static/js/client.min.js': ['static/js/client.js']
         }
       }
     },
@@ -38,7 +92,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-  grunt.registerTask('default', ['browserify', 'jshint', 'connect', 'watch']);
+  grunt.registerTask('build', ['browserify', 'compass', 'concat', 'connect', 'watch']);
+  grunt.registerTask('release', ['browserify', 'compass', 'concat', 'cssmin', 'uglify', 'connect', 'watch']);
+  grunt.registerTask('default', ['jshint', 'build']);
   grunt.registerTask('test', ['browserify', 'jshint', 'mochaTest']);
 };
