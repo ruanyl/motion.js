@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: ['src/**/*.js'],
-        tasks: ['jshint', 'browserify']
+        tasks: ['jshint', 'concat:js']
       },
       compass: {
         files: ['src/**/*.scss'],
@@ -18,17 +18,21 @@ module.exports = function(grunt) {
         files: ['dist/**/*.css'],
         tasks: ['concat:css']
       },
-      combineJs: {
-        files: ['dist/**/*.js'],
-        tasks: ['concat:js']
-      },
       minCss: {
-        files: ['static/css/style.css'],
+        files: ['dist/css/motion.css'],
         tasks: ['cssmin']
       },
       minJs: {
-        files: ['static/js/client.js'],
+        files: ['dist/js/motion.js'],
         tasks: ['uglify']
+      },
+      copyCss: {
+        files: ['dist/css/motion.min.css'],
+        tasks: ['copy:css']
+      },
+      copyJs: {
+        files: ['dist/js/motion.min.js'],
+        tasks: ['copy:js']
       }
     },
     connect: {
@@ -36,13 +40,6 @@ module.exports = function(grunt) {
         options: {
           port: 8080,
           base: '.'
-        }
-      }
-    },
-    browserify: {
-      dist: {
-        files: {
-          'dist/js/client.js': ['src/**/*.js']
         }
       }
     },
@@ -57,25 +54,47 @@ module.exports = function(grunt) {
     concat: {
       css: {
         src: ['dist/**/*.css'],
-        dest: 'static/css/style.css'
+        dest: 'dist/css/motion.css'
       },
       js: {
-        src: ['dist/**/*.js'],
-        dest: 'static/js/client.js'
+        options: {
+          stripBanners: true,
+          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+            '<%= grunt.template.today("yyyy-mm-dd") %> */\n' +
+            '(function (window, document, undefined) {\n',
+          footer: '}(window, document));',
+        },
+        files: {
+          'dist/js/motion.js': ['src/js/*.js'],
+        }
       }
     },
     cssmin: {
       minify: {
         files: {
-          'static/css/style.min.css': ['static/css/style.css']
+          'dist/css/motion.min.css': ['dist/css/motion.css']
         }
       }
     },
     uglify: {
       minify: {
         files: {
-          'static/js/client.min.js': ['static/js/client.js']
+          'dist/js/motion.min.js': ['dist/js/motion.js']
         }
+      }
+    },
+    copy: {
+      css: {
+        expand: true,
+        flatten: true,
+        src: ['dist/css/motion.min.css', 'dist/css/motion.css'],
+        dest: 'static/css/'
+      },
+      js: {
+        expand: true,
+        flatten: true,
+        src: ['dist/js/motion.min.js', 'dist/js/motion.js'],
+        dest: 'static/js/'
       }
     },
     mochaTest: {
@@ -90,15 +109,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('build', ['browserify', 'compass', 'concat', 'connect', 'watch']);
-  grunt.registerTask('release', ['browserify', 'compass', 'concat', 'cssmin', 'uglify', 'connect', 'watch']);
-  grunt.registerTask('default', ['jshint', 'build']);
-  grunt.registerTask('test', ['browserify', 'jshint', 'mochaTest']);
+  grunt.registerTask('build', ['jshint', 'compass', 'concat', 'cssmin', 'uglify', 'copy', 'watch']);
+  grunt.registerTask('server', ['jshint', 'compass', 'concat', 'cssmin', 'uglify', 'copy', 'connect', 'watch']);
+  grunt.registerTask('default', ['server']);
+  grunt.registerTask('test', ['jshint', 'mochaTest']);
 };

@@ -18,5 +18,3 @@ Timeline.prototype = {
     return this;
   }
 };
-
-module.exports = Timeline;

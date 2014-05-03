@@ -14,8 +14,3 @@ var indexOf = function(val) {
   }
   return -1;
 };
-
-module.exports = {
-  remove: remove,
-  indexOf: indexOf
-};

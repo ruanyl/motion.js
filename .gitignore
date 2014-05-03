@@ -1,3 +1,5 @@
 node_modules
-static/js/client.js
+static/js/motion.*
+static/css/motion.*
+dist/
 .sass-cache

@@ -1,6 +1,3 @@
-var Util = require('./Util');
-var Timeline = require('./Timeline');
-
 var Stage = function(canvas) {
   /*this.ctx = null;*/
   //this.canvas = document.getElementById(canvas);
@@ -26,5 +23,3 @@ Stage.prototype = {
     return new Timeline(start, end);
   }
 };
-
-module.exports = Stage;
