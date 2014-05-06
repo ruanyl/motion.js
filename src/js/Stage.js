@@ -11,7 +11,7 @@
     /*}*/
   };
 
-  Stage.prototype = {
+  Motion.Stage.prototype = {
     add: function(shape) {
       this.shapes.push(shape);
       return this;

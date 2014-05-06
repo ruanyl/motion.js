@@ -1,15 +1,15 @@
 var assert = require("assert");
-var Util = require('../../src/js/Util.js');
-var Stage = require('../../src/js/Stage.js');
+var Motion = require('../../dist/js/motion.js');
 
 describe('Util', function(){
-  describe('#indexOf()', function(){
-    it('should return index of a value when the value is present', function(){
-      assert.equal(2, Util.indexOf.call([1,2,3], 3));
+  describe('#test()', function(){
+    it('should return test true', function(){
+      assert.equal('test', Motion.Util.test('test'));
     });
   });
 });
 
+/**
 describe('Util', function(){
   describe('#remove()', function(){
     it('should remove item from an array', function(){
@@ -31,3 +31,4 @@ describe('Stage', function(){
     });
   });
 });
+**/
