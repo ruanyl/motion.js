@@ -60,9 +60,7 @@ module.exports = function(grunt) {
         options: {
           stripBanners: true,
           banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %> */\n' +
-            '(function (window, document, undefined) {\n',
-          footer: '}(window, document));',
+            '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
         },
         files: {
           'dist/js/motion.js': ['src/js/*.js'],
