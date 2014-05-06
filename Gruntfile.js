@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     concat: {
       css: {
         src: ['dist/**/*.css'],
-        dest: 'dist/css/motion.css'
+        dest: 'static/css/motion.css'
       },
       js: {
         options: {
