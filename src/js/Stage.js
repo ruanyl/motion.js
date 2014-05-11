@@ -1,27 +1,21 @@
 (function() {
   Motion.Stage = function(canvas) {
-    /*this.ctx = null;*/
-    //this.canvas = document.getElementById(canvas);
-    //this.shapes = [];
+    this.ctx = null;
+    this.canvas = document.getElementById(canvas);
 
-    //if(this.canvas && this.canvas.getContext('2d')) {
-      //this.ctx = this.canvas.getContext("2d");
-    //} else {
-      //throw 'not support!';
-    /*}*/
+    if(this.canvas && this.canvas.getContext('2d')) {
+      ctx = new Context(this.canvas.getContext('2d'));
+    } else {
+      throw 'not support!';
+    }
   };
 
   Motion.Stage.prototype = {
-    add: function(shape) {
-      this.shapes.push(shape);
-      return this;
+    add: function() {
+      var args = [].slice.call(arguments);
+      this.ctx.add(args);
     },
     remove: function(shape) {
-      this.shapes = Util.remove.call(this.shapes, shape);
-      return this;
-    },
-    createTimeline: function(start, end) {
-      return new Timeline(start, end);
     }
   };
 })();
