@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
         },
         files: {
-          'dist/js/motion.js': ['src/js/*.js'],
+          'dist/js/motion.js': ['src/js/Motion.js', 'src/js/*.js'],
         }
       }
     },
