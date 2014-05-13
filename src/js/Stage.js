@@ -3,8 +3,8 @@
     this.ctx = null;
     this.canvas = document.getElementById(canvas);
 
-    if(this.canvas && this.canvas.getContext('2d')) {
-      ctx = new Context(this.canvas.getContext('2d'));
+    if(this.canvas && this.canvas.getContext) {
+      this.ctx = new Motion.Context(this.canvas.getContext('2d'));
     } else {
       throw 'not support!';
     }

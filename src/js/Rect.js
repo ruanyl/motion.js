@@ -10,6 +10,9 @@
   };
 
   Motion.Rect.prototype = {
-    draw: function(ctx) {}
+    draw: function(ctx) {
+      ctx.fillStyle = "rgb(200,0,0)";
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
   }
-})
+})();
